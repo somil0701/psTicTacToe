@@ -57,7 +57,8 @@ int main()
 {
     // Declarations
     player playerOne, playerTwo;
-    playerOne.score, playerTwo.score = 0, 0;
+    playerOne.score = 0;
+    playerTwo.score = 0;
     char playerTurnMarker;
     char playAgain;
     bool victorCondition = false;
@@ -106,12 +107,12 @@ int main()
 
         printf("%s's Turn! (%c): \n", playerOne.name, playerOne.marker);
 
-        reinputposition:
+        reinputposition1:
         printf("%s Enter The Position of Your Marker: ", playerOne.name);
         scanf("%d", &playerCursor);
 
         if (markerPositions[playerCursor-1] == 'O' || markerPositions[playerCursor-1] == 'X')
-            goto reinputposition;
+            goto reinputposition1;
         else
             markerPositions[playerCursor-1] = playerOne.marker;
 
@@ -154,11 +155,12 @@ int main()
 
         printf("%s's Turn! (%c): \n", playerTwo.name, playerTwo.marker);
 
+        reinputposition2:
         printf("%s Enter The Position of Your Marker: ", playerTwo.name);
         scanf("%d", &playerCursor);
 
         if (markerPositions[playerCursor-1] == 'O' || markerPositions[playerCursor-1] == 'X')
-            goto reinputposition;
+            goto reinputposition2;
         else
             markerPositions[playerCursor-1] = playerTwo.marker;
 
@@ -175,7 +177,9 @@ int main()
                 goto getPlayerMarkers;
             else
                 break;
-        }
+            }
+           
+        
 
         numberofturns++;
         if (numberofturns == 9){
@@ -184,10 +188,14 @@ int main()
             scanf("%c", &playAgain);
 
             if (playAgain == 'Y' || playAgain == 'y')
-                goto getPlayerMarkers;
+                 goto getPlayerMarkers;
             else
                 break;
-        }
+            }
+        
+    
+            
+               
     }
     return 0;
 }
