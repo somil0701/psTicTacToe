@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
 #include <ctype.h>
@@ -62,9 +63,8 @@ int main()
     char playerTurnMarker;
     char playAgain;
     bool victorCondition = false;
-    int numberofturns = 0;
     int playerCursor;
-    char markerPositions[] = {' ',' ',' ',' ',' ',' ',' ',' ',' '};
+    
 
     // Getting Player names
     printf("Enter your name P1: ");
@@ -75,6 +75,9 @@ int main()
 
     // Getting Player Markers
     getPlayerMarkers:
+        char markerPositions[] = {' ',' ',' ',' ',' ',' ',' ',' ',' '};
+        int numberofturns = 0;
+        system("clear");
         printf("%s Enter Your Marker Here (O/X): ", playerOne.name);
         scanf("\n%c", &playerOne.marker);
         playerOne.marker = toupper(playerOne.marker);
@@ -121,9 +124,10 @@ int main()
 
 
         if(checkVictory(playerTurnMarker, markerPositions)){
+            printf("%s won the game\n", playerOne.name);
             playerOne.score++;
             printf("Do you want to play again?(Y/n): ");
-            scanf("%c", &playAgain);
+            scanf("\n%c", &playAgain);
 
             if (playAgain == 'Y' || playAgain == 'y')
                 goto getPlayerMarkers;
@@ -137,7 +141,7 @@ int main()
         if (numberofturns == 9){
             printf("Match Draw");
             printf("Do you want to play again?(Y/n): ");
-            scanf("%c", &playAgain);
+            scanf("\n%c", &playAgain);
 
             if (playAgain == 'Y' || playAgain == 'y')
                 goto getPlayerMarkers;
@@ -170,8 +174,9 @@ int main()
         
         if(checkVictory(playerTurnMarker, markerPositions)){
             playerTwo.score++;
+            printf("%s won the game\n",playerTwo.name);
             printf("Do you want to play again?(Y/n): ");
-            scanf("%c", &playAgain);
+            scanf("\n%c", &playAgain);
 
             if (playAgain == 'Y' || playAgain == 'y')
                 goto getPlayerMarkers;
@@ -185,10 +190,10 @@ int main()
         if (numberofturns == 9){
             printf("Match Draw\n");
             printf("Do you want to play again?(Y/n): ");
-            scanf("%c", &playAgain);
+            scanf("\n%c", &playAgain);
 
             if (playAgain == 'Y' || playAgain == 'y')
-                 goto getPlayerMarkers;
+                goto getPlayerMarkers;
             else
                 break;
             }
