@@ -11,42 +11,36 @@ typedef struct {
     char marker;
 } player;
 
-
 // Functions
-void printScoreBoard (player playerOne, player playerTwo) {
+void printScoreBoard(player playerOne, player playerTwo) {
     printf("+------SCORES-------+\n");
     printf("| %s           - %d |\n", playerOne.name, playerOne.score);
     printf("| %s           - %d |\n", playerTwo.name, playerTwo.score);
     printf("+-------------------+\n");
 }
 
-
-
-bool checkVictory(char playerTurn, char markerPositions[]){
-
-    if (markerPositions[0] == playerTurn && markerPositions[3] == playerTurn && markerPositions[6] == playerTurn )
+bool checkVictory(char playerTurn, char markerPositions[]) {
+    if (markerPositions[0] == playerTurn && markerPositions[3] == playerTurn && markerPositions[6] == playerTurn)
         return true;
-    else if (markerPositions[1] == playerTurn && markerPositions[4] == playerTurn && markerPositions[7] == playerTurn )
+    else if (markerPositions[1] == playerTurn && markerPositions[4] == playerTurn && markerPositions[7] == playerTurn)
         return true;
-    else if (markerPositions[2] == playerTurn && markerPositions[5] == playerTurn && markerPositions[8] == playerTurn )
+    else if (markerPositions[2] == playerTurn && markerPositions[5] == playerTurn && markerPositions[8] == playerTurn)
         return true;
-    else if (markerPositions[0] == playerTurn && markerPositions[1] == playerTurn && markerPositions[2] == playerTurn )
+    else if (markerPositions[0] == playerTurn && markerPositions[1] == playerTurn && markerPositions[2] == playerTurn)
         return true;
-    else if (markerPositions[3] == playerTurn && markerPositions[4] == playerTurn && markerPositions[5] == playerTurn )
+    else if (markerPositions[3] == playerTurn && markerPositions[4] == playerTurn && markerPositions[5] == playerTurn)
         return true;
-    else if (markerPositions[6] == playerTurn && markerPositions[7] == playerTurn && markerPositions[8] == playerTurn )
+    else if (markerPositions[6] == playerTurn && markerPositions[7] == playerTurn && markerPositions[8] == playerTurn)
         return true;
-    else if (markerPositions[0] == playerTurn && markerPositions[4] == playerTurn && markerPositions[8] == playerTurn )
+    else if (markerPositions[0] == playerTurn && markerPositions[4] == playerTurn && markerPositions[8] == playerTurn)
         return true;
-    else if (markerPositions[2] == playerTurn && markerPositions[4] == playerTurn && markerPositions[6] == playerTurn )
+    else if (markerPositions[2] == playerTurn && markerPositions[4] == playerTurn && markerPositions[6] == playerTurn)
         return true;
     else
         return false;
-
-
 }
 
-void printGameBoard (player playerOne, player playerTwo, char markerPositions[]){
+void printGameBoard(player playerOne, player playerTwo, char markerPositions[]) {
     printf(" %c | %c | %c \n", markerPositions[0], markerPositions[1], markerPositions[2]);
     printf("---+---+---\n");
     printf(" %c | %c | %c \n", markerPositions[3], markerPositions[4], markerPositions[5]);
@@ -54,8 +48,7 @@ void printGameBoard (player playerOne, player playerTwo, char markerPositions[])
     printf(" %c | %c | %c \n", markerPositions[6], markerPositions[7], markerPositions[8]);
 }
 
-int main()
-{
+int main() {
     // Declarations
     player playerOne, playerTwo;
     playerOne.score = 0;
@@ -64,7 +57,7 @@ int main()
     char playAgain;
     bool victorCondition = false;
     int playerCursor;
-    
+    char markerPositions[9]; // Declared outside getPlayerMarkers block
 
     // Getting Player names
     printf("Enter your name P1: ");
@@ -74,37 +67,33 @@ int main()
     scanf("%s", playerTwo.name);
 
     // Getting Player Markers
-    getPlayerMarkers:
-        char markerPositions[] = {' ',' ',' ',' ',' ',' ',' ',' ',' '};
-        int numberofturns = 0;
-        system("clear");
-        printf("%s Enter Your Marker Here (O/X): ", playerOne.name);
-        scanf("\n%c", &playerOne.marker);
-        playerOne.marker = toupper(playerOne.marker);
+getPlayerMarkers:
+    memset(markerPositions, ' ', sizeof(markerPositions)); // Initialize markerPositions with spaces
+    int numberofturns = 0;
+    system("clear");
+    printf("%s Enter Your Marker Here (O/X): ", playerOne.name);
+    scanf("\n%c", &playerOne.marker);
+    playerOne.marker = toupper(playerOne.marker);
 
-        switch (playerOne.marker)
-        {
-            case 'O':
-                playerTwo.marker = 'X';
-                break;
-            case 'X':
-                playerTwo.marker = 'O';
-                break;
-            default:
-                printf("[ERROR] Invalid Input!\n");
-                goto getPlayerMarkers;
-                break;
-        }
+    switch (playerOne.marker) {
+        case 'O':
+            playerTwo.marker = 'X';
+            break;
+        case 'X':
+            playerTwo.marker = 'O';
+            break;
+        default:
+            printf("[ERROR] Invalid Input!\n");
+            goto getPlayerMarkers;
+            break;
+    }
 
     // Printing Game Board and Score Board For First Turn
     printScoreBoard(playerOne, playerTwo);
     printGameBoard(playerOne, playerTwo, markerPositions);
-    
 
-    while (true)
-    {
-
-        // Player One's Turn
+    while (true) {
+      // Player One's Turn
         
         playerTurnMarker = playerOne.marker;
 
@@ -197,10 +186,7 @@ int main()
             else
                 break;
             }
-        
-    
-            
-               
     }
+
     return 0;
 }
